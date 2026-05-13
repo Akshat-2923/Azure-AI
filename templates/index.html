@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+  <head>
+    <title>News Insight | AI Summary</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">News Insight</div>
+    </header>
+
+    <main class="content">
+      <section class="hero">
+        <h1>AI-Powered News Summary</h1>
+        <p>
+          Paste a news article or provide a link to generate a concise summary.
+        </p>
+      </section>
+
+      <section class="input-section">
+        <form method="POST" action="/">
+          <div class="field">
+            <label>News Article URL (Optional)</label>
+            <input
+              type="text"
+              name="url"
+              placeholder="https://newswebsite.com/article"
+            />
+          </div>
+
+          <div class="divider">OR</div>
+
+          <div class="field">
+            <label>Paste News Content (Optional)</label>
+            <textarea
+              name="paragraph"
+              rows="8"
+              placeholder="Paste the full news article here..."
+            ></textarea>
+          </div>
+          <div class="field">
+            <label>Select Output Language</label>
+            <select name="language">
+              <option value="en">English</option>
+              <option value="hi">Hindi</option>
+              <option value="ta">Tamil</option>
+              <option value="mr">Marathi</option>
+              <option value="bn">Bengali</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-btn">Generate Summary</button>
+        </form>
+      </section>
+
+      {% if error %}
+      <div class="error-box">{{ error }}</div>
+      {% endif %} {% if summary %}
+      <section class="summary-section">
+        <h2>English Summary</h2>
+        <article class="summary-card">
+          <p>{{ summary }}</p>
+        </article>
+      </section>
+      {% endif %} {% if hindi_summary %}
+      <section class="summary-section">
+        <h2>Translated Summary</h2>
+        <article class="summary-card">
+          <p>{{ hindi_summary }}</p>
+        </article>
+
+        {% if audio_file %}
+        <div class="audio-player">
+          <audio controls>
+            <source
+              src="{{ url_for('static', filename=audio_file) }}"
+              type="audio/mpeg"
+            />
+            Your browser does not support the audio element.
+          </audio>
+        </div>
+        {% endif %}
+      </section>
+      {% endif %}
+    </main>
+  </body>
+</html>
