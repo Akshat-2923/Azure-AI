@@ -1,0 +1,6 @@
+Flask
+python-dotenv
+requests
+beautifulsoup4
+azure-cognitiveservices-speech
+azure-ai-textanalytics
